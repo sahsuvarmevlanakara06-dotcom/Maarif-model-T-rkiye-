@@ -1,0 +1,99 @@
+name: 2. Samsung Galaxy Store Release APK Derle
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-release-apk:
+    name: Imzali Release APK Olustur
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kaynak Kodu Indir
+        uses: actions/checkout@v4
+
+      - name: JDK 21 Kurulumu
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Imza Secret Kontrolleri
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ] || [ -z "$STORE_PASSWORD" ] || [ -z "$KEY_PASSWORD" ]; then
+            echo "::error::Eksik Secret! GitHub Settings > Secrets and variables > Actions altinda KEYSTORE_BASE64, STORE_PASSWORD ve KEY_PASSWORD tanimli olmalidir."
+            exit 1
+          fi
+
+      - name: Release Keystore Dosyasini Hazirla
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+        run: |
+          echo "$KEYSTORE_BASE64" | tr -d '\n\r ' | base64 --decode > "${{ github.workspace }}/my-upload-key.jks"
+          SHA1=$(keytool -list -v -keystore "${{ github.workspace }}/my-upload-key.jks" -alias upload -storepass "$STORE_PASSWORD" | grep "SHA1:" | awk '{print $2}')
+          SHA256=$(keytool -list -v -keystore "${{ github.workspace }}/my-upload-key.jks" -alias upload -storepass "$STORE_PASSWORD" | grep "SHA256:" | awk '{print $2}')
+          {
+            echo "## Imzali Release APK Bilgileri"
+            echo "- **Paket Adi:** \`com.aistudio.maarifportal.qkzrtx\`"
+            echo "- **Imza SHA-1:** \`${SHA1}\`"
+            echo "- **Imza SHA-256:** \`${SHA256}\`"
+            echo ""
+            echo "Bu SHA-1 ve SHA-256 degerlerinin Firebase Console'da kayitli oldugundan emin olun."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Android SDK Lisanslarini Onayla
+        run: |
+          SDK_MANAGER=""
+          if [ -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
+            SDK_MANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          elif [ -x "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" ]; then
+            SDK_MANAGER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
+          fi
+          if [ -n "$SDK_MANAGER" ]; then
+            yes | "$SDK_MANAGER" --licenses > /dev/null 2>&1 || true
+          fi
+
+      - name: Gradle 9.3.1 Kurulumu
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.3.1'
+
+      - name: Imzali Release APK Derle
+        env:
+          KEYSTORE_PATH: ${{ github.workspace }}/my-upload-key.jks
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          gradle :app:assembleRelease --no-daemon
+
+      - name: Release APK Ciktisini Dogrula ve Hazirla
+        run: |
+          mkdir -p release-output
+          APK_PATH="app/build/outputs/apk/release/app-release.apk"
+          if [ ! -f "$APK_PATH" ]; then
+            echo "::error::Release APK bulunamadi: $APK_PATH"
+            exit 1
+          fi
+          cp "$APK_PATH" release-output/MaarifPortal-GalaxyStore-Release.apk
+          ls -lh release-output/MaarifPortal-GalaxyStore-Release.apk
+
+          APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name "apksigner" 2>/dev/null | sort -V | tail -n 1 || true)
+          if [ -n "$APKSIGNER" ]; then
+            "$APKSIGNER" verify --print-certs release-output/MaarifPortal-GalaxyStore-Release.apk
+          fi
+
+      - name: Gecici Keystore Dosyasini Temizle
+        if: always()
+        run: rm -f "${{ github.workspace }}/my-upload-key.jks"
+
+      - name: Galaxy Store Release APK Dosyasini Yukle
+        uses: actions/upload-artifact@v4
+        with:
+          name: MaarifPortal-GalaxyStore-Release-APK
+          path: release-output/MaarifPortal-GalaxyStore-Release.apk
+          retention-days: 30

@@ -1,0 +1,6 @@
+{
+  "name": "Maarif Portal",
+  "description": "5-12. sınıflar için MEB Türkiye Yüzyılı Maarif Modeli uyumlu, oyunlaştırılmış etkileşimli eğitim, sınav ve kişisel çalışma planı portalı.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

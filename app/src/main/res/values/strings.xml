@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Maarif Portal</string>
+    <string name="app_subtitle">Türkiye Yüzyılı Maarif Modeli</string>
+    <string name="nav_courses">Dersler</string>
+    <string name="nav_study_plan">Çalışma Planı</string>
+    <string name="nav_leaderboard">Sıralama</string>
+    <string name="nav_stats">İstatistikler</string>
+    <string name="nav_profile">Profil</string>
+    <string name="nav_settings">Ayarlar</string>
+    <string name="profile_title">Öğrenci Profili</string>
+    <string name="profile_badges_title">Kazanılan Rozetler ve Başarımlar</string>
+    <string name="profile_history_title">Tamamlanan Sınav Geçmişi</string>
+    <string name="profile_edit_name">Profili Düzenle</string>
+    <string name="grade_suffix">. Sınıf</string>
+    <string name="cat_core">Temel Dersler</string>
+    <string name="cat_elective">Seçmeli &amp; Alan</string>
+    <string name="cat_languages">Yabancı &amp; Türk Dilleri</string>
+    <string name="cat_religion">Din &amp; Ahlak</string>
+    <string name="streak_cd">Günlük çalışma serisi</string>
+    <string name="points_cd">Toplam kazanılan puan</string>
+    <string name="potion_cd">Aktif puan çarpan iksiri</string>
+    <string name="modal_step1_title">1. Aşama: Konu Seçimi</string>
+    <string name="modal_step2_title">2. Aşama: Soru Formatları</string>
+    <string name="btn_next">İleri</string>
+    <string name="btn_back">Geri</string>
+    <string name="btn_start_quiz">Seçilen Formatlarla Sınavı Başlat</string>
+    <string name="btn_finish_quiz">Sınavı Bitir ve Puanları Topla</string>
+    <string name="btn_return_home">Ana Sayfaya Dön</string>
+    <string name="btn_lgs_mode">LGS Çıkmış Sorular Modu</string>
+    <string name="btn_yks_mode">YKS Çıkmış Sorular Modu</string>
+    <string name="select_all">Tümünü Seç</string>
+    <string name="clear_all">Temizle</string>
+    <string name="study_plan_title">Kişisel Çalışma Planım</string>
+    <string name="add_goal">Hedef Ekle</string>
+    <string name="recommendations_title">Sana Özel Önerilen Sınavlar</string>
+    <string name="stats_title">Performans ve Geçmiş</string>
+</resources>

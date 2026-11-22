@@ -1,0 +1,14 @@
+{
+  "firestore": [
+    {
+      "database": "ai-studio-android-eduporta-be2eb9b9-7106-4ca6-b3b5-fcc4a5994637",
+      "rules": "firestore.rules"
+    }
+  ],
+  "emulators": {
+    "firestore": {
+      "host": "127.0.0.1",
+      "port": 8085
+    }
+  }
+}

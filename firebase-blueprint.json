@@ -1,0 +1,88 @@
+{
+  "entities": {
+    "LeaderboardEntry": {
+      "title": "LeaderboardEntry",
+      "description": "Public, non-PII student ranking entry updated in real-time after quiz completions and profile edits.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated Firebase UID matching the document ID."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Student display name (1 to 30 characters)."
+        },
+        "avatarColorIndex": {
+          "type": "integer",
+          "description": "Selected avatar palette index (0 to 5)."
+        },
+        "grade": {
+          "type": "integer",
+          "description": "Student grade level (5 to 12)."
+        },
+        "totalPoints": {
+          "type": "integer",
+          "description": "All-time earned gamification points."
+        },
+        "weeklyPoints": {
+          "type": "integer",
+          "description": "Points earned during the ISO week specified by weekKey."
+        },
+        "weekKey": {
+          "type": "string",
+          "description": "ISO week identifier in YYYY-Www format (e.g., 2026-W47)."
+        },
+        "streakCount": {
+          "type": "integer",
+          "description": "Current consecutive daily study streak."
+        },
+        "perfectQuizCount": {
+          "type": "integer",
+          "description": "Number of quizzes completed with 100% accuracy."
+        },
+        "activeMultiplier": {
+          "type": "integer",
+          "description": "Currently active point multiplier potion value (1 to 1,000,000)."
+        },
+        "publicVisible": {
+          "type": "boolean",
+          "description": "Visibility flag required to be true for authenticated leaderboard queries."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Immutable server creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of the last score or profile update."
+        }
+      },
+      "required": [
+        "userId",
+        "displayName",
+        "avatarColorIndex",
+        "grade",
+        "totalPoints",
+        "weeklyPoints",
+        "weekKey",
+        "streakCount",
+        "perfectQuizCount",
+        "activeMultiplier",
+        "publicVisible",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/leaderboard/{userId}": {
+      "schema": {
+        "$ref": "#/entities/LeaderboardEntry"
+      },
+      "description": "Real-time Global and Weekly student leaderboard entries keyed by authenticated userId."
+    }
+  }
+}
