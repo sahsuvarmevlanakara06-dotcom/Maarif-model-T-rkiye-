@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "566024886898",
+    "project_id": "gen-lang-client-0318136037",
+    "storage_bucket": "gen-lang-client-0318136037.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566024886898:android:7a7e0fa91ae687695740eb",
+        "android_client_info": {
+          "package_name": "com.aistudio.maarifportal.qkzrtx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566024886898-9nh4e8nhlqds6uvm9h7fnjncavl7sr70.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aistudio.maarifportal.qkzrtx",
+            "certificate_hash": "2f17377acd6b499545c57b36b12875867dbf42c7"
+          }
+        },
+        {
+          "client_id": "566024886898-esvpqjk10flt8bbembblj6jkqbgjfp5u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aistudio.maarifportal.qkzrtx",
+            "certificate_hash": "a9a405059ebb85e6b17dc638814cad3fc7de07a2"
+          }
+        },
+        {
+          "client_id": "566024886898-p1lnr62a0qfj57ka6b836dpt9ta9t5ju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmX6sYiTPhictlPKjYpTpVK58oHL5cttU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566024886898-p1lnr62a0qfj57ka6b836dpt9ta9t5ju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
